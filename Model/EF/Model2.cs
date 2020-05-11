@@ -8,7 +8,7 @@ namespace Model.EF
     public partial class Model2 : DbContext
     {
         public Model2()
-            : base("data source=DESKTOP-7REEAC9\\SQLEXPRESS;initial catalog=NewK;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework")
+            : base("data source=DESKTOP-0ARI99F\\SQLEXPRESS;initial catalog=NewK;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework")
         {
         }
 

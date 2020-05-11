@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dao\CateDao.cs" />
+    <Compile Include="Dao\CommentDao.cs" />
     <Compile Include="Dao\PostDao.cs" />
     <Compile Include="EF\baiviet.cs" />
     <Compile Include="EF\binhluan.cs" />

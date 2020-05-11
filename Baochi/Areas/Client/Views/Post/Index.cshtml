@@ -2,10 +2,14 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Client/Views/Shared/_HomeLayout.cshtml";
     var post = (Model.EF.baiviet)ViewBag.post;
-    
+
     string cateName = (string)ViewBag.cateName;
     string cateSlug = (string)ViewBag.cateSlug;
 
+    var hotNews = (List<Model.EF.baiviet>)ViewBag.hotNews;
+
+    var relatedNews = (List<Model.EF.baiviet>)ViewBag.relatedNews;
+    var comments = (List<Model.EF.binhluan>)ViewBag.comments;
 }
 @section css {
     <link href="~/Asset/css/PageCss/postpage.css" rel="stylesheet" />
@@ -35,17 +39,17 @@
                                 <div class="list-news">
                                     <div class="first-news">
                                         <div class="first-news-thumb">
-                                            <img src="/Asset/Images/shen.png" alt="Alternate Text" />
+                                            <img src="@hotNews[0].thumbnail" alt="Alternate Text" />
                                         </div>
                                         <p class="first-news-title">
-                                            <a href="#">  Nóng! LMHT: Tốc Chiến bất ngờ hiện nút “Install” cho phép game thủ tải về</a>
+                                            <a href="/Client/Post/@hotNews[0].theloaitin.slug/@hotNews[0].slug">@hotNews[0].tieude</a>
                                         </p>
                                     </div>
-                                    @for (int i = 0; i < 5; i++)//foreaach để hiện ra tên các bài viết trong danh sách tin đáng đọc
+                                    @for (int i = 1; i < hotNews.Count; i++)//foreaach để hiện ra tên các bài viết trong danh sách tin đáng đọc
                                     {
                                         <div class="list-news-item">
                                             <i class="far fa-newspaper"></i>
-                                            <a href="#">Nóng! LMHT: Tốc Chiến bất ngờ hiện nút “Install” cho phép game thủ tải về</a>
+                                            <a href="/Client/Post/@hotNews[i].theloaitin.slug/@hotNews[i].slug">@hotNews[i].tieude</a>
                                         </div>
                                     }
                                 </div>
@@ -64,34 +68,46 @@
                                 Bình luận về bài viết
                             </h3>
                             <div class="list-post-comment">
-                                @for (int i = 0; i < 3; i++)//foreaach để hiện ra tên các bài viết trong danh sách tin đáng đọc
+                                @if (comments.Count > 0)
                                 {
-                                    <div class="post-comment-item">
-                                        <div class="user-ava">
-                                            <img src="/Asset/Images/default-avatar.png" alt="Alternate Text" />
+                                    foreach (var comment in comments)
+                                    {
+                                        <div class="post-comment-item">
+                                            <div class="user-ava">
+                                                <img src="/Asset/Images/default-avatar.png" alt="Alternate Text" />
+                                            </div>
+                                            <div class="post-comment-item-detail">
+                                                <p class="user-name">
+                                                    @comment.tennguoidang
+                                                </p>
+                                                <p class="post-comment-item-content">
+                                                    @comment.noidung
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="post-comment-item-detail">
-                                            <p class="user-name">
-                                                @*//ví dụ user-name*@
-                                                Darklord
-                                            </p>
-                                            <p class="post-comment-item-content">
-                                                thật tuyệt vời
-                                            </p>
-                                        </div>
-                                    </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <h3>Bài viết chưa có bình luận !</h3>
                                 }
                             </div>
                             <div class="post-comment-box">
+                                @Html.AntiForgeryToken()
                                 <div class="post-comment-input">
                                     <div class="user-ava">
                                         <img src="/Asset/Images/default-avatar.png" alt="Alternate Text" />
                                     </div>
-                                    <div class="form-group">
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <div class="comment-inputs">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="comment-username" placeholder="Nhập tên của bạn (Bắt buộc)">
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="comment-content" rows="3"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary">Gửi bình luận</button>
+                                <button class="btn btn-primary" onclick="AddComment(@post.id)">Gửi bình luận</button>
                             </div>
                         </div>
                         <div class="related-news">
@@ -99,16 +115,16 @@
                                 Cùng chuyên mục
                             </h3>
                             <div class="row">
-                                @for (int i = 0; i < 6; i++)
+                                @foreach (var relatedN in relatedNews)
                                 {
                                     <div class="col-md-4">
                                         <div class="related-news-item">
                                             <div class="related-news-item-thumb">
-                                                <img src="/Asset/Images/shen.png" alt="Alternate Text" />
+                                                <img src="@relatedN.thumbnail" alt="Alternate Text" />
                                             </div>
                                             <p class="related-news-item-title">
-                                                <a href="#">
-                                                    Nóng! LMHT: Tốc Chiến bấNóng! LMHT: Tốc Chiến bất ngờ hiện nút “Install” cho phép game thủ tải vềNóng! LMHT: Tốc Chiến bất ngờ hiện nút “Install” cho phép game thủ tải vềt ngờ hiện nút “Install” cho phép game thủ tải về
+                                                <a href="/Client/Post/@relatedN.theloaitin.slug/@relatedN.slug">
+                                                    @relatedN.tieude
                                                 </a>
                                             </p>
                                         </div>
@@ -127,4 +143,7 @@
         </div>
     </div>
 </main>
+@section js{
+    <script src="~/Asset/JavaScript/Post.js"></script>
+}
 

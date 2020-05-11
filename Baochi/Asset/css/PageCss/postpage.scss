@@ -186,6 +186,11 @@
                         }
                     }
                 }
+                h3{
+                    margin-bottom: 0;
+                    font-size: 14px;
+                    text-align: center;
+                }
             }
 
             .post-comment-box {
@@ -198,13 +203,12 @@
 
                 .post-comment-input {
                     display: flex;
-                    align-items: center;
                     position: relative;
 
                     .user-ava {
                         width: 48px;
                         height: 48px;
-
+                        margin-top: 6px;
                         img {
                             width: 100%;
                             height: 100%;
@@ -213,13 +217,18 @@
                         }
                     }
 
-                    .form-group {
+                    .comment-inputs {
+                        width: 94%;
                         margin: 0;
                         padding-left: 15px;
-                        width: 94%;
 
-                        textarea {
-                            font-size: 14px;
+                        .form-group {
+                            margin-bottom: 5px;
+                            padding: 0;
+
+                            textarea {
+                                font-size: 14px;
+                            }
                         }
                     }
                 }

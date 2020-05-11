@@ -117,6 +117,10 @@ main {
           main #postpage .post-comment .list-post-comment .post-comment-item .post-comment-item-detail .post-comment-item-content {
             margin: 0;
             font-size: 14px; }
+      main #postpage .post-comment .list-post-comment h3 {
+        margin-bottom: 0;
+        font-size: 14px;
+        text-align: center; }
     main #postpage .post-comment .post-comment-box {
       background: #f7f7f7;
       padding: 10px 20px;
@@ -126,22 +130,25 @@ main {
       padding-bottom: 60px; }
       main #postpage .post-comment .post-comment-box .post-comment-input {
         display: flex;
-        align-items: center;
         position: relative; }
         main #postpage .post-comment .post-comment-box .post-comment-input .user-ava {
           width: 48px;
-          height: 48px; }
+          height: 48px;
+          margin-top: 6px; }
           main #postpage .post-comment .post-comment-box .post-comment-input .user-ava img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 50%; }
-        main #postpage .post-comment .post-comment-box .post-comment-input .form-group {
+        main #postpage .post-comment .post-comment-box .post-comment-input .comment-inputs {
+          width: 94%;
           margin: 0;
-          padding-left: 15px;
-          width: 94%; }
-          main #postpage .post-comment .post-comment-box .post-comment-input .form-group textarea {
-            font-size: 14px; }
+          padding-left: 15px; }
+          main #postpage .post-comment .post-comment-box .post-comment-input .comment-inputs .form-group {
+            margin-bottom: 5px;
+            padding: 0; }
+            main #postpage .post-comment .post-comment-box .post-comment-input .comment-inputs .form-group textarea {
+              font-size: 14px; }
       main #postpage .post-comment .post-comment-box button {
         position: absolute;
         right: 20px;
