@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Client/Views/Shared/_HomeLayout.cshtml";
+
+    var posts = (List<Model.EF.baiviet>)ViewBag.posts;
+    var hotNews = (List<Model.EF.baiviet>)ViewBag.hotNews;
+    var cates = (List<Model.EF.theloaitin>)ViewBag.cates;
+}
+@section css{
+    <link href="~/Asset/css/PageCss/homepage.css" rel="stylesheet" />
+}
+<main>
+    <div class="container" id="homepage">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ads-hor-banner">
+                    <img src="/Asset/Images/horBanner.png" alt="Alternate Text" class="img-fluid" />
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="best-news-list">
+                    <div class="row">
+                        @if (hotNews.Count > 0)
+                        {
+                            for (int i = 0; i < 4; i += 2) //Các bài viết nổi bật của trang chủ
+                            {
+                                <div class="col-md-7">
+                                    <div class="best-news-item">
+                                        <div class="best-news-item-thumb">
+                                            <img src="@hotNews[i].thumbnail" alt="Alternate Text" />
+                                        </div>
+                                        <h3 class="best-news-item-title">
+                                            <a href="/Client/Post/@hotNews[i].theloaitin.slug/@hotNews[i].slug" class="best-news-item-link">
+                                                @hotNews[i].tieude
+                                            </a>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="best-news-item">
+                                        <div class="best-news-item-thumb">
+                                            <img src="@hotNews[i+1].thumbnail" alt="Alternate Text" />
+                                        </div>
+                                        <h3 class="best-news-item-title">
+                                            <a href="#" class="best-news-item-link">
+                                                @hotNews[i + 1].tieude
+                                            </a>
+                                        </h3>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="col-md-12">
+                        @foreach (var cate in cates)
+                        {
+                            <div class="recent-news-list">
+                                <h2 class="recent-news-list-title">
+                                    <a href="/Client/Category/@cate.slug">@cate.ten</a>
+                                </h2>
+                                @foreach (var post in posts)
+                                {
+                                    if (post.theloai_id == cate.id)
+                                    {
+                                        <div class="recent-news-item">
+                                            <div class="recent-news-item-thumb">
+                                                <img src="@post.thumbnail" alt="Alternate Text" />
+                                            </div>
+                                            <div class="recent-news-item-content">
+                                                <h3 class="recent-news-item-title" id="recent-news-item-title">
+                                                    <a class="recent-news-item-link" href="/Client/Post/@cate.slug/@post.slug">
+                                                        @post.tieude
+                                                    </a>
+                                                </h3>
+                                                <p class="recent-news-item-desc">
+                                                    @post.tomtat
+                                                </p>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                @{
+                    Html.RenderPartial("~/Areas/Client/Views/PartialView/banner.cshtml");
+                }
+            </div>
+        </div>
+    </div>
+</main>
+@section js{
+}
+

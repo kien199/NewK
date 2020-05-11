@@ -1,0 +1,33 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="~/Asset/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Asset/css/PartialCss/header.css" rel="stylesheet" />
+    <link href="~/Asset/css/PartialCss/footer.css" rel="stylesheet" />
+    @RenderSection("css", false)
+    <title></title>
+</head>
+<body>
+    @{
+        Html.RenderPartial("~/Areas/Client/Views/PartialView/header.cshtml");
+    }
+    @RenderBody()
+
+    @{
+        Html.RenderPartial("~/Areas/Client/Views/PartialView/footer.cshtml");
+    }
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="~/Asset/JS/jquery-3.4.1.min.js"></script>
+    <script src="~/Asset/JS/popper.min.js"></script>
+    <script src="~/Asset/JS/bootstrap.min.js"></script>
+    <script src="~/Asset/JS/font-awesome.js"></script>
+
+    @RenderSection("js", false)
+</body>
+</html>

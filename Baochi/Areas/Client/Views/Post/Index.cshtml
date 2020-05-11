@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Client/Views/Shared/_HomeLayout.cshtml";
+    var post = (Model.EF.baiviet)ViewBag.post;
+    
+    string cateName = (string)ViewBag.cateName;
+    string cateSlug = (string)ViewBag.cateSlug;
+
+}
+@section css {
+    <link href="~/Asset/css/PageCss/postpage.css" rel="stylesheet" />
+}
+<main>
+    <div class="container" id="postpage">
+        <div class="row">
+            @if (post != null)
+            {
+                <div class="col-md-9">
+                    <nav aria-label="breadcrumb">
+
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/Client/Home/Index">NewK</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="/Client/Category/@cateSlug">@cateName</a> </li>
+                        </ol>
+                    </nav>
+                    <h1 class="post-title">
+                        @post.tieude
+                    </h1>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="hot-news">
+                                <p class="hot-news-title">
+                                    TIN ĐÁNG ĐỌC
+                                </p>
+                                <div class="list-news">
+                                    <div class="first-news">
+                                        <div class="first-news-thumb">
+                                            <img src="/Asset/Images/shen.png" alt="Alternate Text" />
+                                        </div>
+                                        <p class="first-news-title">
+                                            <a href="#">  Nóng! LMHT: Tốc Chiến bất ngờ hiện nút “Install” cho phép game thủ tải về</a>
+                                        </p>
+                                    </div>
+                                    @for (int i = 0; i < 5; i++)//foreaach để hiện ra tên các bài viết trong danh sách tin đáng đọc
+                                    {
+                                        <div class="list-news-item">
+                                            <i class="far fa-newspaper"></i>
+                                            <a href="#">Nóng! LMHT: Tốc Chiến bất ngờ hiện nút “Install” cho phép game thủ tải về</a>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="post-content">
+                                @Html.Raw(post.noidung)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="post-comment">
+                            <h3 class="post-comment-title">
+                                Bình luận về bài viết
+                            </h3>
+                            <div class="list-post-comment">
+                                @for (int i = 0; i < 3; i++)//foreaach để hiện ra tên các bài viết trong danh sách tin đáng đọc
+                                {
+                                    <div class="post-comment-item">
+                                        <div class="user-ava">
+                                            <img src="/Asset/Images/default-avatar.png" alt="Alternate Text" />
+                                        </div>
+                                        <div class="post-comment-item-detail">
+                                            <p class="user-name">
+                                                @*//ví dụ user-name*@
+                                                Darklord
+                                            </p>
+                                            <p class="post-comment-item-content">
+                                                thật tuyệt vời
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="post-comment-box">
+                                <div class="post-comment-input">
+                                    <div class="user-ava">
+                                        <img src="/Asset/Images/default-avatar.png" alt="Alternate Text" />
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary">Gửi bình luận</button>
+                            </div>
+                        </div>
+                        <div class="related-news">
+                            <h3 class="related-news-title">
+                                Cùng chuyên mục
+                            </h3>
+                            <div class="row">
+                                @for (int i = 0; i < 6; i++)
+                                {
+                                    <div class="col-md-4">
+                                        <div class="related-news-item">
+                                            <div class="related-news-item-thumb">
+                                                <img src="/Asset/Images/shen.png" alt="Alternate Text" />
+                                            </div>
+                                            <p class="related-news-item-title">
+                                                <a href="#">
+                                                    Nóng! LMHT: Tốc Chiến bấNóng! LMHT: Tốc Chiến bất ngờ hiện nút “Install” cho phép game thủ tải vềNóng! LMHT: Tốc Chiến bất ngờ hiện nút “Install” cho phép game thủ tải vềt ngờ hiện nút “Install” cho phép game thủ tải về
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-md-3">
+                @{
+                    Html.RenderPartial("~/Areas/Client/Views/PartialView/banner.cshtml");
+                }
+            </div>
+        </div>
+    </div>
+</main>
+

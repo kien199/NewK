@@ -1,0 +1,40 @@
+header {
+  background-color: #ec5f5f;
+  margin-top: 40px;
+  /*position: sticky;
+  top:20px;
+  z-index:999;*/ }
+  header nav.navbar .navbar-brand {
+    position: absolute;
+    top: -16px;
+    left: -64px;
+    width: 160px;
+    height: 78px;
+    color: white !important;
+    background: #ec5f5f;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    box-shadow: 10px 4px 12px 1px #9c0000; }
+  header nav.navbar .collapse {
+    padding-left: 99px;
+    position: relative; }
+    header nav.navbar .collapse .navbar-nav .nav-item .nav-link {
+      font-size: 17px;
+      text-transform: uppercase;
+      color: white;
+      font-weight: 600; }
+    header nav.navbar .collapse form .form-inline input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      padding: 7px 12px; }
+      header nav.navbar .collapse form .form-inline input:focus {
+        box-shadow: none;
+        outline: none; }
+    header nav.navbar .collapse form .form-inline button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0; }
+
+/*# sourceMappingURL=header.css.map */

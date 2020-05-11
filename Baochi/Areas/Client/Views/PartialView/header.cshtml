@@ -1,0 +1,28 @@
+﻿@{ 
+    var cates = (List<Model.EF.theloaitin>)ViewBag.cates;
+}
+<header class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/Client/Home/Index">NewK</a>
+
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                @if (cates.Count > 0)
+                {
+                    foreach (var cate in cates)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Client/Category/@cate.slug">@cate.ten</a>
+                        </li>
+                    }
+                }
+            </ul>
+            <form action="#" method="get" accept-charset="utf-8">
+                <div class="form-inline">
+                    <input type="text" class="form-control" id="" placeholder="Tìm kiếm">
+                    <button type="submit" class="btn btn-light"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Client/Views/Shared/_HomeLayout.cshtml";
+
+    var posts = (List<Model.EF.baiviet>)ViewBag.posts;
+    var cateName = (string)ViewBag.cateName;
+    var cateSlug = (string)ViewBag.cateSlug;
+}
+@section css{
+    <link href="~/Asset/css/PageCss/homepage.css" rel="stylesheet" />
+}
+<main>
+    <div class="container" id="homepage">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ads-hor-banner">
+                    <img src="/Asset/Images/horBanner.png" alt="Alternate Text" class="img-fluid" />
+                </div>
+            </div>
+            <div class="col-md-9">
+                @if (posts.Count > 0)
+                {
+
+                    <div class="best-news-list">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="best-news-item">
+                                    <div class="best-news-item-thumb">
+                                        <img src="@posts[0].thumbnail" alt="Alternate Text" />
+                                    </div>
+                                    <h3 class="best-news-item-title">
+                                        <a href="/Client/Post/@cateSlug/@posts[0].slug" class="best-news-item-link">
+                                            @posts[0].tieude
+                                        </a>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="best-news-item">
+                                    <div class="best-news-item-thumb">
+                                        <img src="@posts[1].thumbnail" alt="Alternate Text" />
+                                    </div>
+                                    <h3 class="best-news-item-title">
+                                        <a href="/Client/Post/@cateSlug/@posts[1].slug" class="best-news-item-link">
+                                            @posts[1].tieude
+                                        </a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="recent-news-list">
+                                <h2 class="recent-news-list-title">
+                                    <a href="#">@cateName</a>
+                                </h2>
+                                @for (int j = 2; j < posts.Count; j++)
+                                {
+                                    <div class="recent-news-item">
+                                        <div class="recent-news-item-thumb">
+                                            <img src="@posts[j].thumbnail" alt="Alternate Text" />
+                                        </div>
+                                        <div class="recent-news-item-content">
+                                            <h3 class="recent-news-item-title" id="recent-news-item-title">
+                                                <a class="recent-news-item-link" href="/Client/Post/@cateSlug/@posts[j].slug">
+                                                    @posts[j].tieude
+                                                </a>
+                                            </h3>
+                                            <p class="recent-news-item-desc">
+                                                @posts[j].tomtat
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3">
+                @{
+                    Html.RenderPartial("~/Areas/Client/Views/PartialView/banner.cshtml");
+                }
+            </div>
+        </div>
+    </div>
+</main>
+
