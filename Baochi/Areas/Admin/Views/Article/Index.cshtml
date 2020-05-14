@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_HomeLayout.cshtml";
+}
+@section css{
+}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Articles</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Articles</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- /.row -->
+            <!-- Main row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <h3 class="card-title mr-3">List of Articles</h3>
+                            <a href="/Admin/Article/Adding"><button class="btn btn-success"><i class="fas fa-plus"></i></button></a>
+                            <div class="card-tools ml-auto">
+                                <div class="input-group input-group-sm" style="width: 480px;">
+                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">ID</th>
+                                        <th class="text-center">Thumbnail</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Category</th>
+                                        <th class="text-center">Views</th>
+                                        <th class="text-center">Hot</th>
+                                        <th class="text-center">Show</th>
+                                        <th class="text-center" colspan="2">Tools</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center" style="vertical-align: middle;">183</td>
+                                        <td style="vertical-align: middle;" class="text-center"><img src="https://gamek.mediacdn.vn/zoom/310_200/133514250583805952/2020/5/13/photo-6-15893062467561579816406.jpg" alt="" style="width: 100px;height: auto;object-fit: cover;"></td>
+                                        <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle;">LMHT: Volibear làm lại và những hung thần đi đường đơn cực thích băng trụ hạ gục kẻ địch</td>
+                                        <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle;">Không hề e ngại sát thương tới từ trụ, những tướng này không hề cho kẻ địch bất cứ một chỗ trốn nào cả.</td>
+                                        <td style="vertical-align: middle;">Cộng đồng mạng</td>
+                                        <td class="text-center" style="vertical-align: middle;">68</td>
+                                        <td class="text-center" style="vertical-align: middle;">True</td>
+                                        <td class="text-center" style="vertical-align: middle;">True</td>
+                                        <td class="text-center text-primary" style="vertical-align: middle;"><a href="/Admin/Article/Editing"><i class="far fa-edit"></i></a></td>
+                                        <td class="text-center text-danger" onclick="Delete()" style="cursor: pointer;vertical-align: middle;"><i class="far fa-trash-alt"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
+@section js{
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function Delete() {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("Poof! Your imaginary file has been deleted!", {
+                            icon: "success",
+                        });
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+        }
+    </script>
+}
