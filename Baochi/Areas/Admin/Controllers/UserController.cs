@@ -12,6 +12,7 @@ namespace Baochi.Areas.Admin.Controllers
         public ActionResult Index()
         {
             return View();
+            //haha
         }
         public ActionResult Adding()
         {
