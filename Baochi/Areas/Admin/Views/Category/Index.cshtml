@@ -1,10 +1,43 @@
-﻿
+﻿@model PagedList.IPagedList<Model.EF.theloaitin>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_HomeLayout.cshtml";
 }
 @section css{
+    <style>
+        .pagination {
+            margin: 2px 0;
+            white-space: nowrap;
+            padding-left: 0;
+            border-radius: 4px;
+        }
 
+            .pagination a {
+                background: #fafafa;
+                color: #666;
+                position: relative;
+                float: left;
+                padding: 6px 12px;
+                margin-left: -1px;
+                line-height: 1.42857143;
+                text-decoration: none;
+                border: 1px solid #ddd;
+            }
+
+            .pagination > .active > a,
+            .pagination > .active > a:focus,
+            .pagination > .active > a:hover,
+            .pagination > .active > span,
+            .pagination > .active > span:focus,
+            .pagination > .active > span:hover {
+                z-index: 3;
+                color: #fff;
+                cursor: default;
+                background-color: #337ab7;
+                border-color: #337ab7;
+            }
+    </style>
 }
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -38,10 +71,10 @@
                             <a href="/Admin/Category/Adding"><button class="btn btn-success"><i class="fas fa-plus"></i></button></a>
                             <div class="card-tools ml-auto">
                                 <div class="input-group input-group-sm" style="width: 480px;">
-                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
+                                    @Html.AntiForgeryToken()
+                                    <input type="text" name="table_search" id="search-bar" class="form-control float-right" placeholder="Search" onkeyup="SearchCates(this.value)">
                                     <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                        <button type="button" class="btn btn-default"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -58,15 +91,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="text-center">183</td>
-                                        <td>Cộng đồng mạng</td>
-                                        <td>cong-dong-mang</td>
-                                        <td class="text-center text-primary"><a href="/Admin/Category/Editing"><i class="far fa-edit"></i></a></td>
-                                        <td class="text-center text-danger" onclick="Delete()" style="cursor: pointer;"><i class="far fa-trash-alt"></i></td>
-                                    </tr>
+                                    @if (Model.Count > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr id="cate-@item.id">
+                                                <td class="text-center">@item.id</td>
+                                                <td>@item.ten</td>
+                                                <td>@item.slug</td>
+                                                <td class="text-center text-primary"><a href="/Admin/Category/Editing/@item.id"><i class="far fa-edit"></i></a></td>
+                                                <td class="text-center text-danger" onclick="Delete(@item.id)" style="cursor: pointer;"><i class="far fa-trash-alt"></i></td>
+                                            </tr>
+                                        }
+                                    }
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-center align-item-center p-2 pagination-div">
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -81,24 +123,5 @@
 
 @section js{
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        function Delete() {
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this imaginary file!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        swal("Poof! Your imaginary file has been deleted!", {
-                            icon: "success",
-                        });
-                    } else {
-                        swal("Your imaginary file is safe!");
-                    }
-                });
-        }
-    </script>
+    <script src="~/Asset_Admin/js/category.js"></script>
 }

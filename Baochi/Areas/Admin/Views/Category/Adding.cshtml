@@ -41,18 +41,18 @@
                         <div class="card-header">
                             <h3 class="card-title">Adding Form</h3>
                         </div>
-                        <form role="form">
+                        <form role="form" method="post" action="/Admin/Category/ActionAdding">
                             <div class="card-body row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="username">Name</label>
-                                        <input type="text" class="form-control" id="username" placeholder="Enter category name">
+                                        <input type="text" class="form-control" id="name" placeholder="Enter category name" onkeyup="GenSlug(this)" name="name">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="email">Slug</label>
-                                        <input type="text" class="form-control" id="email">
+                                        <input type="text" class="form-control" id="slug" name="slug">
                                     </div>
                                 </div>
                             </div>
@@ -154,4 +154,5 @@
 
         })
     </script>
+    <script src="~/Asset_Admin/js/category.js"></script>
 }

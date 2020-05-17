@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Editing";
     Layout = "~/Areas/Admin/Views/Shared/_HomeLayout.cshtml";
+    var cate = (Model.EF.theloaitin)ViewBag.cate;
 }
 @section css{
     <!-- Bootstrap Color Picker -->
@@ -41,20 +42,21 @@
                         <div class="card-header">
                             <h3 class="card-title">Editing Form</h3>
                         </div>
-                        <form role="form">
+                        <form role="form" method="post" action="/Admin/Category/ActionEditing">
                             <div class="card-body row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="username">Name</label>
-                                        <input type="text" class="form-control" id="username" placeholder="Enter category name">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Enter category name" name="name" value="@cate.ten" onkeyup="GenSlug(this)">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="email">Slug</label>
-                                        <input type="text" class="form-control" id="email">
+                                        <label for="slug">Slug</label>
+                                        <input type="text" class="form-control" id="slug" name="slug" value="@cate.slug">
                                     </div>
                                 </div>
+                                <input type="hidden" name="id" value="@cate.id" />
                             </div>
                             <!-- /.card-body -->
 
@@ -154,4 +156,5 @@
 
         })
     </script>
+    <script src="~/Asset_Admin/js/category.js"></script>
 }

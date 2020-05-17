@@ -146,6 +146,7 @@
     <Content Include="Asset\JS\font-awesome.js" />
     <Content Include="Asset\JS\jquery-3.4.1.min.js" />
     <Content Include="Asset\JS\popper.min.js" />
+    <Content Include="Asset_Admin\js\category.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Global.asax" />
     <Content Include="Asset_Admin\dist\css\adminlte.css" />
@@ -2006,7 +2007,6 @@
     <Folder Include="Asset_Admin\css\layouts\" />
     <Folder Include="Asset_Admin\css\pages\" />
     <Folder Include="Asset_Admin\images\" />
-    <Folder Include="Asset_Admin\js\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>

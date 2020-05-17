@@ -190,4 +190,27 @@ main {
           text-decoration: none;
           color: #323131; }
 
+.pagination {
+  margin: 2px 0;
+  white-space: nowrap;
+  display: inline-block;
+  padding-left: 0;
+  border-radius: 4px; }
+  .pagination a {
+    background: #fafafa;
+    color: #666;
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    border: 1px solid #ddd; }
+    .pagination a:active {
+      z-index: 3;
+      color: #fff;
+      cursor: default;
+      background-color: #337ab7;
+      border-color: #337ab7; }
+
 /*# sourceMappingURL=postpage.css.map */

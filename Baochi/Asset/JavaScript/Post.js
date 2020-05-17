@@ -15,7 +15,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Comment/AddComment",
+            url: "/Client/Comment/AddComment",
             data: formData,
             contentType: "application/json; charset=utf-8",
             dataType: "json",

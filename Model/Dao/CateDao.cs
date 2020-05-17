@@ -1,4 +1,5 @@
 ﻿using Model.EF;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,19 @@ namespace Model.Dao
         {
             db = new Model2();
         }
-
+        public List<theloaitin> SearchCate(string search)
+        {
+            List<theloaitin> cates = new List<theloaitin>();
+            try
+            {
+                cates = db.Database.SqlQuery<theloaitin>("select * from theloaitin where theloaitin.ten LIKE N'%" + search + "%'").ToList();
+                return cates;
+            }
+            catch (Exception ex)
+            {
+                return cates;
+            }
+        }
         public int AddCate(string ten, string slug)
         {
             try
@@ -29,6 +42,24 @@ namespace Model.Dao
                 db.SaveChanges();
 
                 return newCate.id;
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
+        public int EditCate(string ten, string slug, int id)
+        {
+            try
+            {
+                theloaitin editCate = db.theloaitins.Where(x => x.id == id).SingleOrDefault();
+                editCate.ten = ten;
+                editCate.slug = slug;
+                editCate.ngaycapnhat = DateTime.Now;
+
+                db.SaveChanges();
+
+                return editCate.id;
             }
             catch (Exception ex)
             {
@@ -99,6 +130,19 @@ namespace Model.Dao
                 return cates;
             }
         }
+        //Lấy dữ liệu để phân trang
+        public IEnumerable<theloaitin> GetPagedListCate(int page, int pageSize)
+        {
+            try
+            {
+                var cates = db.theloaitins.ToList().ToPagedList(page, pageSize);
+                return cates;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
         public theloaitin GetSingleCate(int cateId)
         {
             theloaitin cate = new theloaitin();
@@ -110,6 +154,21 @@ namespace Model.Dao
             catch
             {
                 return cate;
+            }
+        }
+        public bool DeleteCate(int cateId)
+        {
+            theloaitin cate = new theloaitin();
+            try
+            {
+                cate = db.theloaitins.Where(x => x.id == cateId).SingleOrDefault();
+                db.theloaitins.Remove(cate);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

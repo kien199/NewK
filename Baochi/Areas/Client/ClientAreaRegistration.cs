@@ -17,19 +17,22 @@ namespace Baochi.Areas.Client
             context.MapRoute(
                 "Client_Category",
                 "Client/{controller}/{slug}",
-                new { controller = "Category", action = "Index", slug = UrlParameter.Optional }
+                new { controller = "Category", action = "Index", slug = UrlParameter.Optional },
+                new[] { "Baochi.Areas.Client.Controllers" }
             );
 
             context.MapRoute(
                 "Client_Post",
                 "Client/{controller}/{cateslug}/{postslug}",
-                new { controller = "Post", action = "Index", cateslug = UrlParameter.Optional, postslug = UrlParameter.Optional }
+                new { controller = "Post", action = "Index", cateslug = UrlParameter.Optional, postslug = UrlParameter.Optional },
+                new[] { "Baochi.Areas.Client.Controllers" }
             );
 
             context.MapRoute(
                 "Client_default",
                 "Client/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                new[] { "Baochi.Areas.Client.Controllers" }
             );
         }
     }
