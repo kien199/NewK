@@ -32,16 +32,23 @@ namespace Model.Dao
         {
             try
             {
-                theloaitin newCate = new theloaitin();
-                newCate.ten = ten;
-                newCate.slug = slug;
-                newCate.ngaytao = DateTime.Now;
-                newCate.ngaycapnhat = DateTime.Now;
+                if(ten != "" && slug != "")
+                {
+                    theloaitin newCate = new theloaitin();
+                    newCate.ten = ten;
+                    newCate.slug = slug;
+                    newCate.ngaytao = DateTime.Now;
+                    newCate.ngaycapnhat = DateTime.Now;
 
-                db.theloaitins.Add(newCate);
-                db.SaveChanges();
+                    db.theloaitins.Add(newCate);
+                    db.SaveChanges();
 
-                return newCate.id;
+                    return newCate.id;
+                }
+                else
+                {
+                    return -1;
+                }
             }
             catch (Exception ex)
             {

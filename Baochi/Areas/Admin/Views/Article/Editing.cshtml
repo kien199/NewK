@@ -2,6 +2,10 @@
 @{
     ViewBag.Title = "Editing";
     Layout = "~/Areas/Admin/Views/Shared/_HomeLayout.cshtml";
+
+    var cates = (List<Model.EF.theloaitin>)ViewBag.cates;
+
+    var article = (Model.EF.baiviet)ViewBag.article;
 }
 @section css{  <!-- Bootstrap Color Picker -->
     <link rel="stylesheet" href="~/Asset_Admin/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
@@ -11,6 +15,7 @@
     <link rel="stylesheet" href="~/Asset_Admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="~/Asset_Admin/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+
     <style type="text/css" media="screen">
         .card-block {
             height: 168px;
@@ -40,57 +45,72 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card card-primary">
+                    <div class="card card-success">
                         <div class="card-header">
                             <h3 class="card-title">Editing Form</h3>
                         </div>
-                        <form role="form">
-                            <div class="card-body row">
-                                <div class="col-md-9">
-                                    <div class="form-group">
-                                        <label for="title">Title</label>
-                                        <input type="text" class="form-control" id="title" placeholder="Enter user name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="slug">Slug</label>
-                                        <input type="text" class="form-control" id="slug" placeholder="Enter user name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Tóm tắt</label>
-                                        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                                    </div>
+                        <div class="card-body row">
+                            @Html.AntiForgeryToken()
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" id="title" placeholder="Enter post title" onkeyup="GenSlug(this)" name="title" value="@article.tieude">
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Thumbnail</label>
-                                        <input type="file" name="thumbnail" id="thumbnail" accept="image/*" onchange="readURL(event)" style="width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1;" />
-                                        <div class="thumbnail-result mb-1">
-                                            <img src="https://d1qbemlbhjecig.cloudfront.net/prod/1.8.0/staticfiles/dist/app/bento-components/profile-grid/media/default-image.jpg?1921528efb1e84f4f11b3513f93b75af" alt="" style="width: 100%;height: auto;object-fit: cover;">
-                                        </div>
-                                        <label for="thumbnail" class="btn btn-secondary float-right" style="font-weight: unset;">Chọn ảnh</label>
-                                    </div>
-                                    <div class="form-group mt-5">
-                                        <label>Thể loại</label>
-                                        <select class="custom-select">
-                                            <option selected style="display: none;">--Thể loại--</option>
-                                            <option>Mobile</option>
-                                            <option>Cộng đồng mạng</option>
-                                        </select>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="slug">Slug</label>
+                                    <input type="text" class="form-control" id="slug" placeholder="" name="slug" value="@article.slug">
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Nội dung</label>
-                                        <textarea class="textarea" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                                    </div>
+                                <div class="form-group">
+                                    <label>Tóm tắt</label>
+                                    <textarea class="form-control" rows="3" placeholder="Enter ..." name="desc" id="desc">@article.tomtat</textarea>
                                 </div>
                             </div>
-                            <!-- /.card-body -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Thumbnail</label>
+                                    <input type="file" name="thumbnail" id="thumbnail" accept="image/*" onchange="readURL(event)" style="width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1;" />
+                                    <div class="thumbnail-result mb-1">
+                                        <img src="@article.thumbnail" alt="" style="width: 100%;height: auto;object-fit: cover;">
+                                    </div>
+                                    <label for="thumbnail" class="btn btn-secondary float-right" style="font-weight: unset;">Chọn ảnh</label>
+                                </div>
+                                <div class="form-group mt-5">
+                                    <label>Thể loại</label>
+                                    <select class="custom-select" name="theloai_id" id="cateId">
+                                        <option style="display: none;" value="-1">--Thể loại--</option>
+                                        @if (cates.Count > 0)
+                                        {
+                                            foreach (var item in cates)
+                                            {
+                                                if (item.id == article.theloai_id)
+                                                {
+                                                    <option value="@item.id" selected>
+                                                        @item.ten
+                                                    </option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.id">
+                                                        @item.ten
+                                                    </option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Nội dung</label>
+                                    <textarea class="textarea" name="noidung" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">@article.noidung</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
 
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary float-right" style="width: 300px">Submit</button>
-                            </div>
-                        </form>
+                        <div class="card-footer">
+                            <button type="button" onclick="Edit()" class="btn btn-primary float-right" style="width: 300px">Submit</button>
+                        </div>
                         <!-- /.card-body -->
                     </div>
                 </div>
@@ -203,4 +223,5 @@
 
         })
     </script>
+    <script src="~/Asset_Admin/js/article.js"></script>
 }

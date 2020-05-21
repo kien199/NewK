@@ -29,6 +29,12 @@ namespace Baochi.Areas.Client
             );
 
             context.MapRoute(
+                "Client_AddComment",
+                "Client/Comment/AddComment",
+                new[] { "Baochi.Areas.Client.Controllers" }
+            );
+
+            context.MapRoute(
                 "Client_default",
                 "Client/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },

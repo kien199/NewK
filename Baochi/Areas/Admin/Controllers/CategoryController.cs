@@ -11,7 +11,7 @@ namespace Baochi.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         // GET: Admin/Category
-        public ActionResult Index(int page = 1, int pageSize = 3)
+        public ActionResult Index(int page = 1, int pageSize = 10)
         {
             try
             {

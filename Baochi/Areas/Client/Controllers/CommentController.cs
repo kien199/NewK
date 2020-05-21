@@ -14,6 +14,7 @@ namespace Baochi.Areas.Client.Controllers
         //{
         //    return View();
         //}
+        [HttpPost]
         public JsonResult AddComment()
         {
             try

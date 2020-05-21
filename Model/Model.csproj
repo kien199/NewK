@@ -71,10 +71,9 @@
     <Compile Include="EF\nguoidung.cs" />
     <Compile Include="EF\theloaitin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetGetModel\GetArticleModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
