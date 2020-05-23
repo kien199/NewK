@@ -151,6 +151,7 @@
     <Content Include="Asset\JS\popper.min.js" />
     <Content Include="Asset_Admin\js\article.js" />
     <Content Include="Asset_Admin\js\category.js" />
+    <Content Include="Asset_Admin\js\comment.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Global.asax" />
     <Content Include="Asset_Admin\dist\css\adminlte.css" />

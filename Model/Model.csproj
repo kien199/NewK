@@ -72,6 +72,7 @@
     <Compile Include="EF\theloaitin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetGetModel\GetArticleModel.cs" />
+    <Compile Include="SetGetModel\GetCommentModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
