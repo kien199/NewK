@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Baochi.Areas.Admin.Controllers
 {
-    public class ErrorController : Controller
+    public class ErrorController : BaseController
     {
         // GET: Admin/Error
         public ActionResult Index()

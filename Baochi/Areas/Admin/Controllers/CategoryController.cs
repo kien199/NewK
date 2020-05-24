@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Baochi.Areas.Admin.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController : BaseController
     {
         // GET: Admin/Category
         public ActionResult Index(int page = 1, int pageSize = 10)

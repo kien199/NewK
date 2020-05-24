@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Baochi.Areas.Admin.Controllers
 {
-    public class ArticleController : Controller
+    public class ArticleController : BaseController
     {
         // GET: Admin/Article
         public ActionResult Index(int page = 1, int pageSize = 10)

@@ -65,6 +65,7 @@
     <Compile Include="Dao\CateDao.cs" />
     <Compile Include="Dao\CommentDao.cs" />
     <Compile Include="Dao\PostDao.cs" />
+    <Compile Include="Dao\UserDao.cs" />
     <Compile Include="EF\baiviet.cs" />
     <Compile Include="EF\binhluan.cs" />
     <Compile Include="EF\Model2.cs" />
