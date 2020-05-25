@@ -17,13 +17,21 @@ namespace Model.Dao
         }
         public nguoidung GetByEmail(string email)
         {
-            return db.nguoidungs.Where(x => x.email == email).SingleOrDefault();
+            var user = db.nguoidungs.Where(x => x.email == email).SingleOrDefault();
+            user.matkhau = "Hacker à :))";
+            return user;
+        }
+        public nguoidung GetById(int userId)
+        {
+            var user = db.nguoidungs.Where(x => x.id == userId).SingleOrDefault();
+            user.matkhau = "Hacker à :))";
+            return user;
         }
         public string GetName(string email)
         {
 
             var user = db.nguoidungs.Where(x => x.email == email).SingleOrDefault();
-            if(user == null)
+            if (user == null)
             {
                 return "Không tìm được";
             }
@@ -41,7 +49,7 @@ namespace Model.Dao
             }
             else
             {
-                if(result.matkhau == password)
+                if (result.matkhau == password)
                 {
                     return 1; //Thành công
                 }
@@ -56,7 +64,7 @@ namespace Model.Dao
             try
             {
                 var users = db.nguoidungs.ToList().ToPagedList(page, pageSize);
-                foreach(var item in users)
+                foreach (var item in users)
                 {
                     item.matkhau = "Hacker à :))";
                 }
@@ -71,7 +79,7 @@ namespace Model.Dao
         public int AddUser(string name, string email, string password)
         {
             var test = db.nguoidungs.Where(x => x.email == email).SingleOrDefault();
-            if(test == null)
+            if (test == null)
             {
                 nguoidung user = new nguoidung();
                 user.ten = name;
@@ -95,7 +103,7 @@ namespace Model.Dao
             try
             {
                 users = db.Database.SqlQuery<nguoidung>("select * from nguoidung where nguoidung.ten LIKE N'%" + search + "%'").ToList();
-                foreach(var item in users)
+                foreach (var item in users)
                 {
                     item.matkhau = "Hacker à :)))";
                 }
@@ -106,5 +114,42 @@ namespace Model.Dao
                 return users;
             }
         }
+        public bool DeleteUser(int userId)
+        {
+            nguoidung user = new nguoidung();
+            try
+            {
+                user = db.nguoidungs.Where(x => x.id == userId).SingleOrDefault();
+                db.nguoidungs.Remove(user);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public int EditUser(string username, string phone, string gender,string birth, int role, int id)
+        {
+            try
+            {
+                nguoidung editUser = db.nguoidungs.Where(x => x.id == id).SingleOrDefault();
+                editUser.ten = username;
+                editUser.sdt = phone;
+                editUser.gioitinh = gender;
+                editUser.ngaysinh = birth;
+                editUser.vaitro = role;
+                editUser.ngaycapnhat = DateTime.Now;
+
+                db.SaveChanges();
+
+                return editUser.id;
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
+        
     }
 }

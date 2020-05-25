@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Editing";
     Layout = "~/Areas/Admin/Views/Shared/_HomeLayout.cshtml";
+    var user = (Model.EF.nguoidung)ViewBag.user;
 }
 @section css{
 
@@ -41,32 +42,48 @@
                         <div class="card-header">
                             <h3 class="card-title">Editing Form</h3>
                         </div>
-                        <form role="form">
+                        <form role="form" method="post" action="/Admin/User/ActionEditing">
                             <div class="card-body row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="username">User Name</label>
-                                        <input type="text" class="form-control" id="username" placeholder="Enter user name">
+                                        <input type="text" class="form-control" id="username" placeholder="Enter user name" name="username" value="@user.ten">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                        <input type="email" class="form-control" id="email" value="@user.email" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="phone">Phone</label>
-                                        <input type="text" class="form-control" id="phone" placeholder="Enter phone">
+                                        <input type="text" class="form-control" id="phone" placeholder="Enter phone" name="phone" value="@user.sdt">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Gender</label>
-                                        <select class="custom-select">
-                                            <option>Male</option>
-                                            <option>Female</option>
+                                        <select class="custom-select" name="gender">
+                                            @if (user.gioitinh == "Nam")
+                                            {
+                                                <option value="Nam" selected>Nam</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Nam">Nam</option>
+
+                                            }
+                                            @if (user.gioitinh == "Nữ")
+                                            {
+                                                <option value="Nữ" selected>Nữ</option>
+                                            }
+                                            else
+                                            {
+
+                                                <option value="Nữ">Nữ</option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -75,7 +92,7 @@
                                         <label for="birth">Birth</label>
 
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="birth" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                            <input type="text" class="form-control" id="birth" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="birth" value="@user.ngaysinh">
                                         </div>
                                         <!-- /.input group -->
                                     </div>
@@ -83,12 +100,28 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Role</label>
-                                        <select class="custom-select">
-                                            <option>Admin</option>
-                                            <option>User</option>
+                                        <select class="custom-select" name="role">
+                                            @if (user.vaitro == 1)
+                                            {
+                                                <option value="1" selected>Admin</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="1">Admin</option>
+                                            }
+                                            @if (user.vaitro == 0)
+                                            {
+                                                <option value="0" selected>User</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="0">User</option>
+                                            }
+
                                         </select>
                                     </div>
                                 </div>
+                                <input type="hidden" name="id" value="@user.id" />
                             </div>
                             <!-- /.card-body -->
 

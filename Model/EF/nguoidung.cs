@@ -20,8 +20,8 @@ namespace Model.EF
         [StringLength(255)]
         public string matkhau { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? ngaysinh { get; set; }
+        [StringLength(255)]
+        public string ngaysinh { get; set; }
 
         [StringLength(255)]
         public string sdt { get; set; }

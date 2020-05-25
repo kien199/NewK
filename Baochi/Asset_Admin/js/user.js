@@ -46,7 +46,7 @@
 }
 
 
-function Delete(cateId) {
+function Delete(userId) {
     swal({
         title: "Are you sure?",
         text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -59,10 +59,10 @@ function Delete(cateId) {
                 var formData = new FormData();
                 formData.append('__RequestVerificationToken', $('input[name="__RequestVerificationToken"]').val());
 
-                formData.append('cateId', cateId);
+                formData.append('userId', userId);
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/Category/Deleting",
+                    url: "/Admin/User/Deleting",
                     data: formData,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
@@ -71,7 +71,7 @@ function Delete(cateId) {
                     success: function (response) {
                         if (response.status) {
 
-                            $("#cate-" + cateId).remove();
+                            $("#user-" + userId).remove();
 
                             swal("Poof! Your category has been deleted!", {
                                 icon: "success",
