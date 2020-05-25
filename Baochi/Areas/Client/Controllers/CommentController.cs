@@ -14,26 +14,26 @@ namespace Baochi.Areas.Client.Controllers
         //{
         //    return View();
         //}
-        public JsonResult AddComment()
-        {
-            try
-            {
-                var data = Request.Form;
-                var comment = new CommentDao().AddComment(data["content"], data["username"], Convert.ToInt32(data["postId"]));
-                return Json(new
-                {
-                    status = true,
-                    data = comment
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch
-            {
-                return Json(new
-                {
-                    status = false
-                }, JsonRequestBehavior.AllowGet);
+        //public JsonResult AddComment()
+        //{
+        //    try
+        //    {
+        //        var data = Request.Form;
+        //        var comment = new CommentDao().AddComment(data["content"], data["username"], Convert.ToInt32(data["postId"]));
+        //        return Json(new
+        //        {
+        //            status = true,
+        //            data = comment
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch
+        //    {
+        //        return Json(new
+        //        {
+        //            status = false
+        //        }, JsonRequestBehavior.AllowGet);
 
-            }
-        }
+        //    }
+        //}
     }
 }

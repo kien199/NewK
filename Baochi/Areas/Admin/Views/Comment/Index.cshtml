@@ -1,0 +1,125 @@
+﻿@model PagedList.IPagedList<Model.EF.binhluan>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_HomeLayout.cshtml";
+}
+@section css{
+    <style>
+        .pagination {
+            margin: 2px 0;
+            white-space: nowrap;
+            padding-left: 0;
+            border-radius: 4px;
+        }
+
+            .pagination a {
+                background: #fafafa;
+                color: #666;
+                position: relative;
+                float: left;
+                padding: 6px 12px;
+                margin-left: -1px;
+                line-height: 1.42857143;
+                text-decoration: none;
+                border: 1px solid #ddd;
+            }
+
+            .pagination > .active > a,
+            .pagination > .active > a:focus,
+            .pagination > .active > a:hover,
+            .pagination > .active > span,
+            .pagination > .active > span:focus,
+            .pagination > .active > span:hover {
+                z-index: 3;
+                color: #fff;
+                cursor: default;
+                background-color: #337ab7;
+                border-color: #337ab7;
+            }
+    </style>
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Comments</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Comments</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- /.row -->
+            <!-- Main row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center">
+                            <h3 class="card-title mr-3">List of Comments</h3>
+                            <div class="card-tools ml-auto">
+                                <div class="input-group input-group-sm" style="width: 480px;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search" id="search-bar" onkeyup="SearchComments(this.value)">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">ID</th>
+                                        <th>Article</th>
+                                        <th>Commentator</th>
+                                        <th>Content</th>
+                                        <th class="text-center" colspan="1">Tools</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr id="comment-@item.id">
+                                                <td class="text-center">@item.id</td>
+                                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle;">@item.baiviet.tieude</td>
+                                                <td>@item.tennguoidang</td>
+                                                <td>@item.noidung</td>
+                                                <td class="text-center text-danger" onclick="Delete(@item.id)" style="cursor: pointer;"><i class="far fa-trash-alt"></i></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center align-item-center p-2 pagination-div">
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+@section js{
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/Asset_Admin/js/comment.js"></script>
+}
