@@ -37,20 +37,23 @@
                                     TIN ĐÁNG ĐỌC
                                 </p>
                                 <div class="list-news">
-                                    <div class="first-news">
-                                        <div class="first-news-thumb">
-                                            <img src="@hotNews[0].thumbnail" alt="Alternate Text" />
-                                        </div>
-                                        <p class="first-news-title">
-                                            <a href="/Client/Post/@hotNews[0].theloaitin.slug/@hotNews[0].slug">@hotNews[0].tieude</a>
-                                        </p>
-                                    </div>
-                                    @for (int i = 1; i < hotNews.Count; i++)//foreaach để hiện ra tên các bài viết trong danh sách tin đáng đọc
+                                    @if (hotNews.Count > 0)
                                     {
-                                        <div class="list-news-item">
-                                            <i class="far fa-newspaper"></i>
-                                            <a href="/Client/Post/@hotNews[i].theloaitin.slug/@hotNews[i].slug">@hotNews[i].tieude</a>
+                                        <div class="first-news">
+                                            <div class="first-news-thumb">
+                                                <img src="@hotNews[0].thumbnail" alt="Alternate Text" />
+                                            </div>
+                                            <p class="first-news-title">
+                                                <a href="/Client/Post/@hotNews[0].theloaitin.slug/@hotNews[0].slug">@hotNews[0].tieude</a>
+                                            </p>
                                         </div>
+                                        for (int i = 1; i < hotNews.Count; i++)//foreaach để hiện ra tên các bài viết trong danh sách tin đáng đọc
+                                        {
+                                            <div class="list-news-item">
+                                                <i class="far fa-newspaper"></i>
+                                                <a href="/Client/Post/@hotNews[i].theloaitin.slug/@hotNews[i].slug">@hotNews[i].tieude</a>
+                                            </div>
+                                        }
                                     }
                                 </div>
 
@@ -115,20 +118,23 @@
                                 Cùng chuyên mục
                             </h3>
                             <div class="row">
-                                @foreach (var relatedN in relatedNews)
+                                @if (relatedNews.Count > 0)
                                 {
-                                    <div class="col-md-4">
-                                        <div class="related-news-item">
-                                            <div class="related-news-item-thumb">
-                                                <img src="@relatedN.thumbnail" alt="Alternate Text" />
+                                    foreach (var relatedN in relatedNews)
+                                    {
+                                        <div class="col-md-4">
+                                            <div class="related-news-item">
+                                                <div class="related-news-item-thumb">
+                                                    <img src="@relatedN.thumbnail" alt="Alternate Text" />
+                                                </div>
+                                                <p class="related-news-item-title">
+                                                    <a href="/Client/Post/@relatedN.theloaitin.slug/@relatedN.slug">
+                                                        @relatedN.tieude
+                                                    </a>
+                                                </p>
                                             </div>
-                                            <p class="related-news-item-title">
-                                                <a href="/Client/Post/@relatedN.theloaitin.slug/@relatedN.slug">
-                                                    @relatedN.tieude
-                                                </a>
-                                            </p>
                                         </div>
-                                    </div>
+                                    }
                                 }
                             </div>
                         </div>

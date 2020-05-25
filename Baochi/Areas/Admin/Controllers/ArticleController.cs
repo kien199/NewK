@@ -1,4 +1,6 @@
-﻿using Model.Dao;
+﻿using Baochi.Areas.Client.Controllers;
+using Baochi.Common;
+using Model.Dao;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,14 @@ namespace Baochi.Areas.Admin.Controllers
         {
             try
             {
+                if (Session[CommonConstants.USER_SESSION] != null)
+                {
+                    var session = new UserLogin();
+                    session = (UserLogin)Session[CommonConstants.USER_SESSION]; // lấy từ session
+                    var name = new UserDao().GetName(session.userName);
+                    ViewBag.session = name;
+                }
+
                 var posts = new PostDao().GetPagedListPost(page, pageSize);
                 return View(posts);
             }
@@ -78,6 +88,14 @@ namespace Baochi.Areas.Admin.Controllers
         }
         public ActionResult Adding()
         {
+            if (Session[CommonConstants.USER_SESSION] != null)
+            {
+                var session = new UserLogin();
+                session = (UserLogin)Session[CommonConstants.USER_SESSION]; // lấy từ session
+                var name = new UserDao().GetName(session.userName);
+                ViewBag.session = name;
+            }
+
             var cates = new CateDao().GetAllCate();
             ViewBag.cates = cates;
             return View();
@@ -158,6 +176,14 @@ namespace Baochi.Areas.Admin.Controllers
         }
         public ActionResult Editing(int id)
         {
+            if (Session[CommonConstants.USER_SESSION] != null)
+            {
+                var session = new UserLogin();
+                session = (UserLogin)Session[CommonConstants.USER_SESSION]; // lấy từ session
+                var name = new UserDao().GetName(session.userName);
+                ViewBag.session = name;
+            }
+
             var cates = new CateDao().GetAllCate();
             ViewBag.cates = cates;
 
@@ -200,6 +226,14 @@ namespace Baochi.Areas.Admin.Controllers
                 }, JsonRequestBehavior.AllowGet);
 
             }
+        }
+        public ActionResult Crawl()
+        {
+            //Xóa dữ liệu trong db
+            new PostDao().DeleteAllPost();
+            //Chạy dòng này khi muốn đưa crawl dữ liệu vào db
+            new CrawlerController().Crawler("https://gamek.vn/");
+            return RedirectToAction("Index", "Article");
         }
     }
 }

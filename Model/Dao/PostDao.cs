@@ -47,6 +47,7 @@ namespace Model.Dao
             }
             catch (Exception ex)
             {
+
                 return -1;
             }
         }
@@ -174,6 +175,34 @@ namespace Model.Dao
                 return true;
             }
             catch
+            {
+                return false;
+            }
+        }
+        public int CountPost()
+        {
+            try
+            {
+                return db.baiviets.Count();
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
+        public bool DeleteAllPost()
+        {
+            try
+            {
+                var cates = db.theloaitins.ToList();
+                foreach(var item in cates)
+                {
+                    db.theloaitins.Remove(item);
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch(Exception ex)
             {
                 return false;
             }

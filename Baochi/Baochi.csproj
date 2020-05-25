@@ -1858,6 +1858,7 @@
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CrawlerController.cs" />
     <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
@@ -1865,7 +1866,6 @@
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\Client\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Client\Controllers\CommentController.cs" />
-    <Compile Include="Areas\Client\Controllers\CrawlerController.cs" />
     <Compile Include="Areas\Client\Controllers\HomeController.cs" />
     <Compile Include="Areas\Client\Controllers\PostController.cs" />
     <Compile Include="Common\CommonConstants.cs" />
@@ -2010,6 +2010,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
+    <Folder Include="Areas\Admin\Views\Crawler\" />
     <Folder Include="Areas\Client\Models\" />
     <Folder Include="Areas\Client\Views\Comment\" />
     <Folder Include="Areas\Client\Views\Crawler\" />

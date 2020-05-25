@@ -4,30 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Baochi.Areas.Client.Controllers
+namespace Baochi.Areas.Admin.Controllers
 {
     public class CrawlerController : Controller
     {
-        //// GET: Client/Crawler
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
         public void Crawler(string url)
         {
             try
             {
                 string[] cates = { "Mobile", "Esport", "Khám phá", "Manga Film", "Tin tức game", "Cộng đồng mạng" };
-               
+                int cateId = 1;
                 foreach (var item in cates)
                 {
-                    var cate_id = new CateDao().AddCate(item, ToUrlSlug(item));
+                    var cate_id = new CateDao().AddCate(item, ToUrlSlug(item), cateId);
                     if (cate_id == -1)
                     {
                         Console.WriteLine("Lỗi " + item);
@@ -35,6 +29,7 @@ namespace Baochi.Areas.Client.Controllers
                     else
                     {
                         Console.WriteLine("Thêm " + item);
+                        cateId += 1;
                     }
                 }
                 for (int j = 0; j < cates.Length; j++)
@@ -43,11 +38,15 @@ namespace Baochi.Areas.Client.Controllers
                     var cate_slug = ToUrlSlug(cates[j]);
                     if (cates[j] == "Tin tức game" || cates[j] == "Cộng đồng mạng")
                     {
-                        CrawlerSingleCate(url + "/" + cate_slug + ".htm", j+1);
+                        CrawlerSingleCate(url + "/" + cate_slug + ".htm", j + 1);
+                    }
+                    else if(cates[j] == "Mobile")
+                    {
+                        CrawlerSingleCate(url + "/" + cate_slug + "-social.chn", j + 1);
                     }
                     else
                     {
-                        CrawlerSingleCate(url + "/" + cate_slug + ".chn", j+1);
+                        CrawlerSingleCate(url + "/" + cate_slug + ".chn", j + 1);
                     }
                     //https://gamek.vn/tin-tuc-game.htm
                     //https://gamek.vn/kham-pha.chn
@@ -87,7 +86,7 @@ namespace Baochi.Areas.Client.Controllers
                         ?.ChildAttributes("src")?.FirstOrDefault()?.Value;
 
                     var newPost_id = new PostDao().AddPost(tieude, slug, tomtat, noidung, thumbnail, theloai_id);
-                    if(newPost_id == -1)
+                    if (newPost_id == -1)
                     {
                         //lỗi
                         Console.WriteLine("Lỗi " + tieude);
@@ -101,7 +100,7 @@ namespace Baochi.Areas.Client.Controllers
             }
             catch (Exception ex)
             {
-                CrawlerSingleCate(url,theloai_id);
+                CrawlerSingleCate(url, theloai_id);
             }
         }
         public string GetContent(string url)

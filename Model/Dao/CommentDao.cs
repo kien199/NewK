@@ -94,6 +94,17 @@ namespace Model.Dao
                 return false;
             }
         }
+        public int CountComment()
+        {
+            try
+            {
+                return db.binhluans.Count();
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
     }
 
 }

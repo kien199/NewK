@@ -38,6 +38,11 @@ namespace Baochi.Areas.Admin.Controllers
         {
             if (Session[CommonConstants.USER_SESSION] != null)
             {
+                var session = new UserLogin();
+                session = (UserLogin)Session[CommonConstants.USER_SESSION]; // lấy từ session
+                var name = new UserDao().GetName(session.userName);
+                ViewBag.session = name;
+
                 var user = new UserDao().GetById(id);
 
                 ViewBag.user = user;
