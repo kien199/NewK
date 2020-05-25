@@ -34,7 +34,7 @@ namespace Model.EF
 
             modelBuilder.Entity<binhluan>()
                 .Property(e => e.tennguoidang)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<theloaitin>()
                 .Property(e => e.slug)

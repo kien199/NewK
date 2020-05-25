@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_HomeLayout.cshtml";
+
+    var user_count = (int)ViewBag.user_count;
+    var post_count = (int)ViewBag.post_count;
+    var cate_count = (int)ViewBag.cate_count;
+    var comment_count = (int)ViewBag.comment_count;
 }
 @section css {
 }
@@ -34,7 +39,7 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>@user_count</h3>
 
                             <p>Users</p>
                         </div>
@@ -48,7 +53,7 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>@post_count</h3>
 
                             <p>Posts</p>
                         </div>
@@ -64,7 +69,7 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>4</h3>
+                            <h3>@cate_count</h3>
 
                             <p>Categories</p>
                         </div>
@@ -79,7 +84,7 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>@comment_count</h3>
 
                             <p>Comments</p>
                         </div>

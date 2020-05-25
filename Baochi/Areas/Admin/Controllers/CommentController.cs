@@ -1,4 +1,5 @@
-﻿using Model.Dao;
+﻿using Baochi.Common;
+using Model.Dao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,26 @@ namespace Baochi.Areas.Admin.Controllers
         // GET: Admin/Comment
         public ActionResult Index(int page = 1, int pageSize = 10)
         {
-            try
+            if (Session[CommonConstants.USER_SESSION] != null)
             {
-                var commments = new CommentDao().GetPagedListComment(page, pageSize);
-                return View(commments);
+                try
+                {
+                    var session = new UserLogin();
+                    session = (UserLogin)Session[CommonConstants.USER_SESSION]; // lấy từ session
+                    var name = new UserDao().GetName(session.userName);
+                    ViewBag.session = name;
+
+                    var commments = new CommentDao().GetPagedListComment(page, pageSize);
+                    return View(commments);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
-            catch (Exception ex)
+            else
             {
-                throw ex;
+                return RedirectToAction("Login", "User");
             }
         }
         public JsonResult AddComment()
@@ -45,54 +58,75 @@ namespace Baochi.Areas.Admin.Controllers
         }
         public JsonResult Searching()
         {
-            try
+            if (Session[CommonConstants.USER_SESSION] != null)
             {
-                var data = Request.Form;
-                var comments = new CommentDao().SearchComment(data["search"]);
+                try
+                {
+                    var data = Request.Form;
+                    var comments = new CommentDao().SearchComment(data["search"]);
 
-                return Json(new
-                {
-                    status = true,
-                    data = comments
-                }, JsonRequestBehavior.AllowGet) ;
-            }
-            catch
-            {
-                return Json(new
-                {
-                    status = false
-                }, JsonRequestBehavior.AllowGet);
-
-            }
-        }
-        public JsonResult Deleting()
-        {
-            try
-            {
-                var data = Request.Form;
-                var check = new CommentDao().DeleteComment(Convert.ToInt32(data["commentId"]));
-                if (check)
-                {
                     return Json(new
                     {
-                        status = true
+                        status = true,
+                        data = comments
                     }, JsonRequestBehavior.AllowGet);
                 }
-                else
+                catch
                 {
                     return Json(new
                     {
                         status = false
                     }, JsonRequestBehavior.AllowGet);
+
                 }
             }
-            catch
+            else
             {
                 return Json(new
                 {
                     status = false
                 }, JsonRequestBehavior.AllowGet);
+            }
 
+        }
+        public JsonResult Deleting()
+        {
+            if (Session[CommonConstants.USER_SESSION] != null)
+            {
+                try
+                {
+                    var data = Request.Form;
+                    var check = new CommentDao().DeleteComment(Convert.ToInt32(data["commentId"]));
+                    if (check)
+                    {
+                        return Json(new
+                        {
+                            status = true
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            status = false
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                catch
+                {
+                    return Json(new
+                    {
+                        status = false
+                    }, JsonRequestBehavior.AllowGet);
+
+                }
+            }
+            else
+            {
+                return Json(new
+                {
+                    status = false
+                }, JsonRequestBehavior.AllowGet);
             }
         }
     }

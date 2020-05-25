@@ -28,13 +28,14 @@ namespace Model.Dao
                 return cates;
             }
         }
-        public int AddCate(string ten, string slug)
+        public int AddCate(string ten, string slug, int cateId)
         {
             try
             {
                 if(ten != "" && slug != "")
                 {
                     theloaitin newCate = new theloaitin();
+                    newCate.id = cateId;
                     newCate.ten = ten;
                     newCate.slug = slug;
                     newCate.ngaytao = DateTime.Now;
@@ -176,6 +177,17 @@ namespace Model.Dao
             catch
             {
                 return false;
+            }
+        }
+        public int CountCate()
+        {
+            try
+            {
+                return db.theloaitins.Count();
+            }
+            catch (Exception ex)
+            {
+                return -1;
             }
         }
     }

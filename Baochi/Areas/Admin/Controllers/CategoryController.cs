@@ -1,4 +1,5 @@
-﻿using Model.Dao;
+﻿using Baochi.Common;
+using Model.Dao;
 using Model.EF;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,14 @@ namespace Baochi.Areas.Admin.Controllers
         {
             try
             {
+                if (Session[CommonConstants.USER_SESSION] != null)
+                {
+                    var session = new UserLogin();
+                    session = (UserLogin)Session[CommonConstants.USER_SESSION]; // lấy từ session
+                    var name = new UserDao().GetName(session.userName);
+                    ViewBag.session = name;
+                }
+
                 var cates = new CateDao().GetPagedListCate(page, pageSize);
                 return View(cates);
             }
@@ -77,16 +86,33 @@ namespace Baochi.Areas.Admin.Controllers
 
         public ActionResult Adding()
         {
+            if (Session[CommonConstants.USER_SESSION] != null)
+            {
+                var session = new UserLogin();
+                session = (UserLogin)Session[CommonConstants.USER_SESSION]; // lấy từ session
+                var name = new UserDao().GetName(session.userName);
+                ViewBag.session = name;
+            }
+
             return View();
         }
         public ActionResult ActionAdding()
         {
             var data = Request.Form;
-            new CateDao().AddCate(data["name"], data["slug"]);
+            var preCate_id = new CateDao().CountCate();
+            new CateDao().AddCate(data["name"], data["slug"], preCate_id+1);
             return Redirect("Index");
         }
         public ActionResult Editing(int id)
         {
+            if (Session[CommonConstants.USER_SESSION] != null)
+            {
+                var session = new UserLogin();
+                session = (UserLogin)Session[CommonConstants.USER_SESSION]; // lấy từ session
+                var name = new UserDao().GetName(session.userName);
+                ViewBag.session = name;
+            }
+
             var cate = new CateDao().GetSingleCate(id);
 
             ViewBag.cate = cate;

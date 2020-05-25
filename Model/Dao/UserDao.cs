@@ -129,7 +129,7 @@ namespace Model.Dao
                 return false;
             }
         }
-        public int EditUser(string username, string phone, string gender,string birth, int role, int id)
+        public int EditUser(string username, string phone, string gender, string birth, int role, int id)
         {
             try
             {
@@ -150,6 +150,16 @@ namespace Model.Dao
                 return -1;
             }
         }
-        
+        public int CountUser()
+        {
+            try
+            {
+                return db.nguoidungs.Count();
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
     }
 }
