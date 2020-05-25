@@ -98,7 +98,8 @@ namespace Baochi.Areas.Admin.Controllers
                 var userID = new UserDao().AddUser(data["name"], data["email"], Encryptor.MD5Hash(data["password"]));
                 if(userID == -1) // bị trùng email
                 {
-                    return RedirectToAction("Adding", "User");
+                    ModelState.AddModelError("", "Email đã tồn tại");
+                    return View("Adding");
                 }
                 else
                 {
@@ -111,7 +112,8 @@ namespace Baochi.Areas.Admin.Controllers
                 var userID = new UserDao().AddUser(data["name"], data["email"], Encryptor.MD5Hash(data["password"]));
                 if (userID == -1) // bị trùng email
                 {
-                    return RedirectToAction("Register", "User");
+                    ModelState.AddModelError("", "Email đã tồn tại");
+                    return View("Register");
                 }
                 else
                 {
