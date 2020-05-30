@@ -33,8 +33,22 @@
                                 '                                                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle;">' + item.tomtat + '</td>' +
                                 '                                                <td style="vertical-align: middle;">' + item.theloai_ten + '</td>' +
                                 '                                                <td class="text-center" style="vertical-align: middle;">' + item.soluotxem + '</td>' +
-                                '                                                <td class="text-center" style="vertical-align: middle;">' + item.noibat + '</td>' +
-                                '                                                <td class="text-center" style="vertical-align: middle;">' + item.hide + '</td>' +
+                                '                                                <td class="text-center" style="vertical-align: middle;" id="status-' + item.id + '-0">';
+                            if (item.noibat) {
+                                myvar = myvar + '   <button class="btn btn-success" onclick="ChangeStatus(0, 1, ' + item.id + ')">True</button>';
+                            }
+                            else {
+                                myvar = myvar + '   <button class="btn btn-danger" onclick="ChangeStatus(0, 0, ' + item.id + ')">False</button>';
+                            }
+                            myvar = myvar + '                                    </td>' +
+                                '                                                <td class="text-center" style="vertical-align: middle;" id="status-' + item.id + '-1">';
+                            if (item.hide) {
+                                myvar = myvar + '   <button class="btn btn-success" onclick="ChangeStatus(1, 1, ' + item.id + ')">True</button>';
+                            }
+                            else {
+                                myvar = myvar + '    <button class="btn btn-danger" onclick="ChangeStatus(1, 0, ' + item.id + ')">False</button>';
+                            }
+                            myvar = myvar + '                                    </td>' +
                                 '                                                <td class="text-center text-primary" style="vertical-align: middle;"><a href="/Admin/Article/Editing/' + item.id + '"><i class="far fa-edit"></i></a></td>' +
                                 '                                                <td class="text-center text-danger" onclick="Delete' + item.id + ')" style="cursor: pointer;vertical-align: middle;"><i class="far fa-trash-alt"></i></td>' +
                                 '                                            </tr>';
@@ -228,7 +242,7 @@ function Edit() {
         var id = url.substring(url.lastIndexOf('/') + 1);
 
         formData.append("id", id);
-        
+
         var content = $(".textarea").summernote("code");
 
         formData.append("content", encodeURIComponent(content));
@@ -252,4 +266,44 @@ function Edit() {
             }
         });
     }
+}
+function ChangeStatus(loai, tinhtrang, postID) {
+    var formData = new FormData();
+    formData.append('__RequestVerificationToken', $('input[name="__RequestVerificationToken"]').val());
+
+    formData.append("loai", loai);
+    formData.append("tinhtrang", tinhtrang);
+    formData.append("postID", postID);
+
+    $.ajax({
+        type: "POST",
+        url: "/Admin/Article/ChangeStatus",
+        data: formData,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            if (response.status) {
+                if (loai == 0) {
+                    $("#status-" + postID + "-0").empty();
+                    if (tinhtrang == 0) {
+                        $("#status-" + postID + "-0").append('<button class="btn btn-success" onclick="ChangeStatus(0, 1,' + postID + ')">True</button>');
+                    }
+                    else if (tinhtrang == 1) {
+                        $("#status-" + postID + "-0").append('<button class="btn btn-danger" onclick="ChangeStatus(0, 0,' + postID + ')">False</button>');
+                    }
+                }
+                else if (loai == 1) {
+                    $("#status-" + postID + "-1").empty();
+                    if (tinhtrang == 0) {
+                        $("#status-" + postID + "-1").append('<button class="btn btn-success" onclick="ChangeStatus(1, 1,' + postID + ')">True</button>');
+                    }
+                    else if (tinhtrang == 1) {
+                        $("#status-" + postID + "-1").append('<button class="btn btn-danger" onclick="ChangeStatus(1, 0,' + postID + ')">False</button>');
+                    }
+                }
+            }
+        }
+    });
 }
