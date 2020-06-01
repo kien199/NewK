@@ -19,7 +19,7 @@ header {
     font-weight: 700;
     box-shadow: 10px 4px 12px 1px #9c0000; }
   header nav.navbar .collapse {
-    padding-left: 99px;
+    margin-left: 99px;
     position: relative; }
     header nav.navbar .collapse .navbar-nav .nav-item .nav-link {
       font-size: 17px;

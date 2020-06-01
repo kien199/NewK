@@ -37,6 +37,8 @@ namespace Model.SetGetModel
         public int? theloai_id { get; set; }
         [StringLength(255)]
         public string theloai_ten { get; set; }
+        [StringLength(255)]
+        public string theloai_slug { get; set; }
 
         public bool? hide { get; set; }
     }

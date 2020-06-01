@@ -192,6 +192,7 @@ namespace Model.Dao
                 foreach (var item in posts)
                 {
                     item.theloai_ten = db.Database.SqlQuery<string>("select theloaitin.ten from theloaitin where theloaitin.id = " + item.theloai_id).SingleOrDefault();
+                    item.theloai_slug = db.Database.SqlQuery<string>("select theloaitin.slug from theloaitin where theloaitin.id = " + item.theloai_id).SingleOrDefault();
                 }
                 return posts;
             }

@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Client/Views/Shared/_HomeLayout.cshtml";
+
+    var posts = (List<Model.SetGetModel.GetArticleModel>)ViewBag.posts;
+    var cates = (List<Model.EF.theloaitin>)ViewBag.cates;
+    var searchString = (String)ViewBag.searchString;
+
+}
+
+@section css{
+    <link href="~/Asset/css/PageCss/homepage.css" rel="stylesheet" />
+}
+<main>
+    <div class="container" id="homepage">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ads-hor-banner">
+                    <img src="/Asset/Images/horBanner.png" alt="Alternate Text" class="img-fluid" />
+                </div>
+            </div>
+            <div class="col-md-9">
+                @if (posts.Count > 0)
+                {
+                    <div class="best-news-list">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="recent-news-list">
+                                    <h2 class="recent-news-list-title">
+                                        <a href="#">Từ khóa tìm kiếm "@searchString"</a>
+                                    </h2>
+                                    @foreach (var post in posts)
+                                    {
+                                        <div class="recent-news-item">
+                                            <div class="recent-news-item-thumb">
+                                                <img src="@post.thumbnail" alt="Alternate Text" />
+                                            </div>
+                                            <div class="recent-news-item-content">
+                                                <h3 class="recent-news-item-title" id="recent-news-item-title">
+                                                    <a class="recent-news-item-link" href="/Client/Post/@post.theloai_slug/@post.slug">
+                                                        @post.tieude
+                                                    </a>
+                                                </h3>
+                                                <p class="recent-news-item-desc">
+                                                    @post.tomtat
+                                                </p>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3">
+                @{
+                    Html.RenderPartial("~/Areas/Client/Views/PartialView/banner.cshtml");
+                }
+            </div>
+        </div>
+    </div>
+</main>
+

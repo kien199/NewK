@@ -1,9 +1,16 @@
-﻿@{ 
+﻿
+@{
     var cates = (List<Model.EF.theloaitin>)ViewBag.cates;
+
+    var searchString = "";
+    if(ViewBag.searchString != null)
+    {
+        searchString = (String)ViewBag.searchString;
+    }
 }
 <header class="container">
     <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="/Client/Home/Index">NewK</a>
+        <a class="navbar-brand" href="/Client/Home/Index" style="cursor:pointer">NewK</a>
 
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
@@ -17,9 +24,9 @@
                     }
                 }
             </ul>
-            <form action="#" method="get" accept-charset="utf-8">
+            <form action="/Client/Search/Index" method="get" accept-charset="utf-8">
                 <div class="form-inline">
-                    <input type="text" class="form-control" id="" placeholder="Tìm kiếm">
+                    <input type="text" class="form-control" id="search" name="search" placeholder="Tìm kiếm" value="@searchString">
                     <button type="submit" class="btn btn-light"><i class="fas fa-search"></i></button>
                 </div>
             </form>
