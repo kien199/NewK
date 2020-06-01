@@ -227,6 +227,39 @@ namespace Baochi.Areas.Admin.Controllers
 
             }
         }
+        public JsonResult ChangeStatus()
+        {
+            //nếu không chọn ảnh cho bài viết thì để ảnh mặc định là http://localhost:44333/Asset_Admin/images/default-new-image.png
+            try
+            {
+                var data = Request.Form;
+                var check = new PostDao().ChangeStatus(data["loai"], data["tinhtrang"], data["postID"]);
+
+                if (check)
+                {
+                    return Json(new
+                    {
+                        status = true
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        status = false
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    status = false
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+        }
+
         public ActionResult Crawl()
         {
             //Xóa dữ liệu trong db

@@ -38,7 +38,7 @@ namespace Model.Dao
                 newPost.noibat = false;
                 newPost.ngaytao = DateTime.Now;
                 newPost.ngaycapnhat = DateTime.Now;
-                newPost.hide = false;
+                newPost.hide = true;
                 newPost.theloai_id = theloat_id;
                 db.baiviets.Add(newPost);
                 db.SaveChanges();
@@ -49,6 +49,43 @@ namespace Model.Dao
             {
 
                 return -1;
+            }
+        }
+        public bool ChangeStatus(string loai, string tinhtrang, string postID)
+        {
+            try
+            {
+                var postId = Convert.ToInt32(postID);
+                var post = db.baiviets.Where(x => x.id == postId).SingleOrDefault();
+                if(loai == "0")
+                {
+                    if(tinhtrang == "0")
+                    {
+                        post.noibat = true;
+                    }
+                    else if(tinhtrang == "1")
+                    {
+                        post.noibat = false;
+                    }
+                    db.SaveChanges();
+                }
+                if (loai == "1")
+                {
+                    if (tinhtrang == "0")
+                    {
+                        post.hide = true;
+                    }
+                    else if (tinhtrang == "1")
+                    {
+                        post.hide = false;
+                    }
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
         public int EditPost(string tieude, string slug, string tomtat, string noidung, string thumbnail, int theloat_id, int id)
@@ -97,7 +134,7 @@ namespace Model.Dao
             List<baiviet> posts = new List<baiviet>();
             try
             {
-                posts = db.baiviets.Where(x => x.theloai_id == theloai_id && x.hide == false).ToList();
+                posts = db.baiviets.Where(x => x.theloai_id == theloai_id && x.hide == true).ToList();
                 return posts;
             }
             catch (Exception ex)

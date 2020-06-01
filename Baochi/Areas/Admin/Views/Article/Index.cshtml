@@ -91,7 +91,7 @@
                                         <th>Category</th>
                                         <th class="text-center">Views</th>
                                         <th class="text-center">Hot</th>
-                                        <th class="text-center">Hide</th>
+                                        <th class="text-center">Show</th>
                                         <th class="text-center" colspan="2">Tools</th>
                                     </tr>
                                 </thead>
@@ -107,8 +107,26 @@
                                                 <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: middle;">@item.tomtat</td>
                                                 <td style="vertical-align: middle;">@item.theloaitin.ten</td>
                                                 <td class="text-center" style="vertical-align: middle;">@item.soluotxem</td>
-                                                <td class="text-center" style="vertical-align: middle;">@item.noibat</td>
-                                                <td class="text-center" style="vertical-align: middle;">@item.hide</td>
+                                                <td class="text-center" style="vertical-align: middle;" id="status-@item.id-0"> @*0 là nổi bật----0: False, 1: True*@
+                                                    @if (item.noibat.Value)
+                                                    {
+                                                        <button class="btn btn-success" onclick="ChangeStatus(0, 1, @item.id)">True</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button class="btn btn-danger" onclick="ChangeStatus(0, 0, @item.id)">False</button>
+                                                    }
+                                                </td>
+                                                <td class="text-center" style="vertical-align: middle;" id="status-@item.id-1"> @*1 là ẩn/hiện----0: False, 1: True*@
+                                                    @if (item.hide.Value)
+                                                    {
+                                                        <button class="btn btn-success" onclick="ChangeStatus(1, 1, @item.id)">True</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button class="btn btn-danger" onclick="ChangeStatus(1, 0, @item.id)">False</button>
+                                                    }
+                                                </td>
                                                 <td class="text-center text-primary" style="vertical-align: middle;"><a href="/Admin/Article/Editing/@item.id"><i class="far fa-edit"></i></a></td>
                                                 <td class="text-center text-danger" onclick="Delete(@item.id)" style="cursor: pointer;vertical-align: middle;"><i class="far fa-trash-alt"></i></td>
                                             </tr>
