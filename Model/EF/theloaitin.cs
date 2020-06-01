@@ -14,6 +14,7 @@ namespace Model.EF
         {
             baiviets = new HashSet<baiviet>();
         }
+
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
